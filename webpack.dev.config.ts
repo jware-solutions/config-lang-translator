@@ -1,7 +1,7 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack, { Configuration as WebpackConfiguration } from 'webpack'
-
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import ESLintPlugin from 'eslint-webpack-plugin'
@@ -31,6 +31,36 @@ const config: Configuration = {
             ]
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it uses publicPath in webpackOptions.output
+              publicPath: '../'
+            }
+          },
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.(ttf|eot|svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       }
     ]
   },
@@ -47,6 +77,9 @@ const config: Configuration = {
     }),
     new ESLintPlugin({
       extensions: ['js', 'jsx', 'ts', 'tsx']
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name]-[hash].css'
     })
   ],
   devtool: 'inline-source-map',
