@@ -3,8 +3,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack, { Configuration as WebpackConfiguration } from 'webpack'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server'
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
-import ESLintPlugin from 'eslint-webpack-plugin'
+// import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+// import ESLintPlugin from 'eslint-webpack-plugin'
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -65,19 +65,23 @@ const config: Configuration = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js'],
+    fallback: {
+      fs: false,
+      path: false
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new ForkTsCheckerWebpackPlugin({
-      async: false
-    }),
-    new ESLintPlugin({
-      extensions: ['js', 'jsx', 'ts', 'tsx']
-    }),
+    // new ForkTsCheckerWebpackPlugin({
+    //   async: false
+    // }),
+    // new ESLintPlugin({
+    //   extensions: ['js', 'jsx', 'ts', 'tsx']
+    // }),
     new MiniCssExtractPlugin({
       filename: '[name]-[hash].css'
     })
