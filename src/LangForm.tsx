@@ -1,5 +1,6 @@
 import React from 'react'
-import { DropdownItemProps, Form } from 'semantic-ui-react'
+import { DropdownItemProps, Form, LabelProps } from 'semantic-ui-react'
+import { SemanticShorthandItem } from 'semantic-ui-react/dist/commonjs/generic'
 import { Lang, TranslatorState } from './Translator'
 
 interface LangFormProps {
@@ -13,6 +14,8 @@ interface LangFormProps {
   textInputName: string,
   /** Text to display in TextArea. */
   text: string,
+  /** Error to display in TextArea. */
+  error: string | null,
   /** Form change callback. */
   handleFormChange: (name: keyof TranslatorState, value: string) => void
 }
@@ -24,20 +27,27 @@ interface LangFormProps {
  * @returns Component.
  */
 export const LangForm = (props: LangFormProps) => {
+  const error: SemanticShorthandItem<LabelProps> | undefined = props.error
+    ? {
+        content: props.error,
+        pointing: 'below'
+      }
+    : undefined
   return (
     <Form>
       <Form.Select
-      options={props.langOptions}
-      name={props.selectedLangInputName}
-      value={props.selectedLang}
-      width={1}
-      onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
+        options={props.langOptions}
+        name={props.selectedLangInputName}
+        value={props.selectedLang}
+        width={1}
+        onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
       />
       <Form.TextArea
-      rows={25}
-      name={props.textInputName}
-      value={props.text}
-      onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
+        rows={25}
+        name={props.textInputName}
+        value={props.text}
+        error={error}
+        onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
       />
     </Form>
   )

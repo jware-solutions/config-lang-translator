@@ -5,11 +5,13 @@ import yaml from 'js-yaml'
 import toml from 'toml-js'
 import { LangForm } from './LangForm'
 
+/** Available languages. */
 type Lang = 'json' | 'yaml' | 'gura' | 'toml'
 
-interface TranslatorProps {
-}
+/** Component props. */
+interface TranslatorProps {}
 
+/** Component state. */
 interface TranslatorState {
   origin: string,
   originLang: Lang,
@@ -112,23 +114,30 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
    * Parses the origin and dumps to dest.
    */
   transpile () {
-    try {
-      const valueObject = this.parse(this.state.origin)
-      this.setState({ parseError: null })
+    if (this.state.origin.trim().length > 0) {
+      try {
+        const valueObject = this.parse(this.state.origin)
+        this.setState({ parseError: null })
 
-      // Only dumps if there is at least one value
-      if (Object.entries(valueObject).length > 0) {
-        try {
-          const destValue = this.dump(valueObject)
-          this.setState({ dest: destValue })
-        } catch (ex) {
-          // Error dumping
-          this.setState({ dumpError: ex.message })
+        // Only dumps if there is at least one value
+        if (Object.entries(valueObject).length > 0) {
+          try {
+            const destValue = this.dump(valueObject)
+            this.setState({ dest: destValue })
+          } catch (ex) {
+            // Error dumping
+            this.setState({ dumpError: ex.message })
+          }
         }
+      } catch (ex) {
+        // Error parsing
+        this.setState({ parseError: ex.message })
       }
-    } catch (ex) {
-      // Error parsing
-      this.setState({ parseError: ex.message })
+    } else {
+      // If there is an old parse error message, cleans it
+      if (this.state.parseError) {
+        this.setState({ parseError: null })
+      }
     }
   }
 
@@ -169,7 +178,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
     const destLangOptions = langOptions.filter((lang) => lang.value !== this.state.originLang)
 
     return (
-      <Grid>
+      <Grid stackable>
         <Grid.Row columns={3}>
           <Grid.Column width={7}>
             <LangForm
@@ -178,13 +187,15 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
               selectedLang={this.state.originLang}
               textInputName='origin'
               text={this.state.origin}
+              error={this.state.parseError}
               handleFormChange={this.handleFormChange}
             />
           </Grid.Column>
-          <Grid.Column width={2}>
+          <Grid.Column width={2} textAlign='center'>
             <Icon
               name='exchange'
               className='clickable'
+              size='big'
               onClick={this.toggleLangs}
               title='Toggle languages'
             />
@@ -196,6 +207,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
               selectedLang={this.state.destLang}
               textInputName='dest'
               text={this.state.dest}
+              error={this.state.dumpError}
               handleFormChange={this.handleFormChange}
             />
           </Grid.Column>
