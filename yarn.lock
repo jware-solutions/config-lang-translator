@@ -3261,11 +3261,6 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fs@^0.0.1-security:
-  version "0.0.1-security"
-  resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
-  integrity sha1-invTcYa23d84E/I4WLV+yq9eQdQ=
-
 fsevents@^1.2.7:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.13.tgz#f325cb0455592428bcf11b383370ef70e3bfcc38"
@@ -3397,12 +3392,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0,
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
 
-gura@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/gura/-/gura-0.2.1.tgz#d9ea643eeda2e4a6089b7ce50c93e89ae3197a1e"
-  integrity sha512-9kxfzIoIjn7edyPmyW6kxod6QwyciZDtI/p1xPtY6oVeZLj7oe/RdfrnUmZV69sYelqG3PM8eTZdu8fcF6Yh6Q==
-  dependencies:
-    fs "^0.0.1-security"
+gura@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/gura/-/gura-1.1.0.tgz#ef7a506174707f9ed4ff5034eedba2619dcb70ce"
+  integrity sha512-vmfOfxjZ9kkkGmYbWDCVfiGuPJWAS5NeTMBHTONlveR3Rvt7Hb5PfzfpZKed/+ZKPHZUtb5UnfpBLirRuEUIdg==
 
 handle-thing@^2.0.0:
   version "2.0.1"
@@ -6098,6 +6091,11 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+
+toml-js@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/toml-js/-/toml-js-0.0.8.tgz#648ea6f1a4d63b19c0bb30b8ed03e40d09473b0a"
+  integrity sha1-ZI6m8aTWOxnAuzC47QPkDQlHOwo=
 
 ts-node@^10.0.0:
   version "10.0.0"

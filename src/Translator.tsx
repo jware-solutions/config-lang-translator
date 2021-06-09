@@ -1,7 +1,9 @@
 import React from 'react'
-import { DropdownItemProps, Form, Grid, Icon, Select, TextArea } from 'semantic-ui-react'
-// import { parse, dump } from 'gura'
-// import yaml from 'js-yaml'
+import { DropdownItemProps, Grid, Icon } from 'semantic-ui-react'
+import { parse, dump } from 'gura'
+import yaml from 'js-yaml'
+import toml from 'toml-js'
+import { LangForm } from './LangForm'
 
 type Lang = 'json' | 'yaml' | 'gura' | 'toml'
 
@@ -12,10 +14,12 @@ interface TranslatorState {
   origin: string,
   originLang: Lang,
   dest: string
-  destLang: Lang
+  destLang: Lang,
+  parseError: string | null,
+  dumpError: string | null
 }
 
-export class Translator extends React.Component<TranslatorProps, TranslatorState> {
+class Translator extends React.Component<TranslatorProps, TranslatorState> {
   constructor (props: TranslatorProps) {
     super(props)
 
@@ -23,7 +27,9 @@ export class Translator extends React.Component<TranslatorProps, TranslatorState
       origin: '',
       originLang: 'yaml',
       dest: '',
-      destLang: 'json'
+      destLang: 'gura',
+      parseError: null,
+      dumpError: null
     }
   }
 
@@ -33,14 +39,97 @@ export class Translator extends React.Component<TranslatorProps, TranslatorState
    * @param name - Name of the field to update.
    * @param value - Value to set as new field state.
    */
-  handleFormChange (name: keyof TranslatorState, value: string) {
-    // console.log(e)
-    // console.log(value)
-    // console.log(yaml.load(value))
-    // const valueObject = yaml.load(value)
-    // this.setState({ origin: value, dest: dump(valueObject) })
-    // this.setState<never>({ [name]: value, dest: JSON.stringify(valueObject) })
-    this.setState<never>({ [name]: value })
+  handleFormChange = (name: keyof TranslatorState, value: string) => {
+    if (
+      (name === 'originLang' && value === this.state.destLang) ||
+      (name === 'destLang' && value === this.state.originLang)
+    ) {
+      this.toggleLangs()
+    } else {
+      this.setState<never>({ [name]: value }, this.transpile)
+    }
+  }
+
+  /**
+   * Parses a text with the selected configuration language.
+   *
+   * @param text - Text to parse.
+   * @returns Parsed data.
+   */
+  parse (text: string): object {
+    let destValue: object
+    switch (this.state.originLang) {
+      case 'gura':
+        destValue = parse(text)
+        break
+      case 'json':
+        destValue = JSON.parse(text)
+        break
+      case 'yaml':
+        destValue = yaml.load(text) as object
+        break
+      case 'toml':
+        destValue = toml.parse(text)
+        break
+      default:
+        destValue = {}
+        break
+    }
+
+    return destValue
+  }
+
+  /**
+   * Converts an object into an string with the selected configuration language.
+   *
+   * @param valueObject - Object to dump.
+   * @returns String formatted.
+   */
+  dump (valueObject: object): string {
+    let destValue: string
+    switch (this.state.destLang) {
+      case 'gura':
+        destValue = dump(valueObject)
+        break
+      case 'json':
+        destValue = JSON.stringify(valueObject, null, 2)
+        break
+      case 'yaml':
+        destValue = yaml.dump(valueObject)
+        break
+      case 'toml':
+        destValue = toml.dump(valueObject)
+        break
+      default:
+        destValue = ''
+        break
+    }
+
+    return destValue
+  }
+
+  /**
+   * Parses the origin and dumps to dest.
+   */
+  transpile () {
+    try {
+      const valueObject = this.parse(this.state.origin)
+      this.setState({ parseError: null })
+
+      // Only dumps if there is at least one value
+      if (Object.entries(valueObject).length > 0) {
+        try {
+          const destValue = this.dump(valueObject)
+          this.setState({ dest: destValue })
+        } catch (ex) {
+          // Error dumping
+          this.setState({ dumpError: ex.message })
+        }
+      }
+    } catch (ex) {
+      // Error parsing
+      this.setState({ parseError: ex.message })
+    }
   }
 
   /**
@@ -59,7 +148,14 @@ export class Translator extends React.Component<TranslatorProps, TranslatorState
    */
   toggleLangs = () => {
     this.setState((prevState) => {
-      return { originLang: prevState.destLang, destLang: prevState.originLang }
+      return {
+        originLang: prevState.destLang,
+        destLang: prevState.originLang,
+        origin: prevState.dest,
+        dest: ''
+      }
+    }, () => {
+      this.transpile()
     })
   }
 
@@ -76,20 +172,14 @@ export class Translator extends React.Component<TranslatorProps, TranslatorState
       <Grid>
         <Grid.Row columns={3}>
           <Grid.Column width={7}>
-            <Form>
-              <Form.Select
-                options={langOptions}
-                name='originLang'
-                value={this.state.originLang}
-                width={1}
-                onChange={(_, { name, value }) => { this.handleFormChange(name, value as string) }}
-              />
-              <Form.TextArea
-                name='origin'
-                value={this.state.origin}
-                onChange={(_, { name, value }) => { this.handleFormChange(name, value as string) }}
-              />
-            </Form>
+            <LangForm
+              langOptions={langOptions}
+              selectedLangInputName='originLang'
+              selectedLang={this.state.originLang}
+              textInputName='origin'
+              text={this.state.origin}
+              handleFormChange={this.handleFormChange}
+            />
           </Grid.Column>
           <Grid.Column width={2}>
             <Icon
@@ -100,13 +190,20 @@ export class Translator extends React.Component<TranslatorProps, TranslatorState
             />
           </Grid.Column>
           <Grid.Column width={7}>
-            <Form>
-              <Select options={destLangOptions} value={this.state.destLang}/>
-              <TextArea readOnly value={this.state.dest} />
-            </Form>
+            <LangForm
+              langOptions={destLangOptions}
+              selectedLangInputName='destLang'
+              selectedLang={this.state.destLang}
+              textInputName='dest'
+              text={this.state.dest}
+              handleFormChange={this.handleFormChange}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
     )
   }
 }
+
+export { Translator }
+export type { Lang, TranslatorState }
