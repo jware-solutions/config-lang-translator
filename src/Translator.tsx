@@ -10,11 +10,25 @@ const jwareImg = require('./img/JWare.jpg').default
 /** Available languages. */
 type Lang = 'json' | 'yaml' | 'gura' | 'toml'
 
-const images: { [key: string]: any } = {
-  json: require('./img/json.png').default,
-  yaml: require('./img/yaml.png').default,
-  gura: require('./img/gura.png').default,
-  toml: require('./img/toml.png').default
+type LangsData = { [key: string]: { image: any, website: string } }
+
+const LANG_DATA: LangsData = {
+  json: {
+    image: require('./img/json.png').default,
+    website: 'https://www.json.org/json-en.html'
+  },
+  yaml: {
+    image: require('./img/yaml.png').default,
+    website: 'https://yaml.org/spec/'
+  },
+  gura: {
+    image: require('./img/gura.png').default,
+    website: 'https://gura.netlify.app/'
+  },
+  toml: {
+    image: require('./img/toml.png').default,
+    website: 'https://toml.io/en/'
+  }
 }
 
 /** Component props. */
@@ -161,7 +175,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
         key: lang,
         value: lang,
         text: lang,
-        image: { avatar: true, src: images[lang] }
+        image: { avatar: true, src: LANG_DATA[lang].image }
       }
     })
   }
@@ -284,5 +298,5 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
   }
 }
 
-export { Translator }
+export { Translator, LANG_DATA }
 export type { Lang, TranslatorState }

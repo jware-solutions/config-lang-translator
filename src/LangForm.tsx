@@ -1,7 +1,7 @@
 import React from 'react'
-import { DropdownItemProps, Form, LabelProps } from 'semantic-ui-react'
+import { DropdownItemProps, Form, Icon, LabelProps } from 'semantic-ui-react'
 import { SemanticShorthandItem } from 'semantic-ui-react/dist/commonjs/generic'
-import { Lang, TranslatorState } from './Translator'
+import { Lang, TranslatorState, LANG_DATA } from './Translator'
 
 interface LangFormProps {
   /** Languages to display in Select. */
@@ -33,15 +33,35 @@ export const LangForm = (props: LangFormProps) => {
         pointing: 'below'
       }
     : undefined
+
+  console.log(LANG_DATA[props.selectedLang].website)
   return (
     <Form>
-      <Form.Select
-        options={props.langOptions}
-        name={props.selectedLangInputName}
-        value={props.selectedLang}
-        width={3}
-        onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
-      />
+      <Form.Group inline>
+        {/* Language Select */}
+        <Form.Select
+          options={props.langOptions}
+          name={props.selectedLangInputName}
+          value={props.selectedLang}
+          width={5}
+          onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
+        />
+
+        {/* Website link */}
+        <Form.Field className='website-link' width={1}>
+          <a
+            title={`Go to ${props.selectedLang} website`}
+            href={LANG_DATA[props.selectedLang].website}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Icon name='external alternate' />
+          </a>
+        </Form.Field>
+
+      </Form.Group>
+
+      {/* Text area */}
       <Form.TextArea
         rows={25}
         name={props.textInputName}
