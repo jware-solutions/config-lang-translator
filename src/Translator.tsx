@@ -10,6 +10,13 @@ const jwareImg = require('./img/JWare.jpg').default
 /** Available languages. */
 type Lang = 'json' | 'yaml' | 'gura' | 'toml'
 
+const images: { [key: string]: any } = {
+  json: require('./img/json.png').default,
+  yaml: require('./img/yaml.png').default,
+  gura: require('./img/gura.png').default,
+  toml: require('./img/toml.png').default
+}
+
 /** Component props. */
 interface TranslatorProps {}
 
@@ -150,7 +157,12 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
    */
   generateDropdownItems (): DropdownItemProps[] {
     return ['json', 'yaml', 'gura', 'toml'].map((lang) => {
-      return { key: lang, value: lang, text: lang }
+      return {
+        key: lang,
+        value: lang,
+        text: lang,
+        image: { avatar: true, src: images[lang] }
+      }
     })
   }
 
