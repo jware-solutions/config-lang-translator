@@ -158,6 +158,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
       }
     } else {
       // If there is an old parse error message, cleans it
+      this.setState({ dest: '' })
       if (this.state.parseError) {
         this.setState({ parseError: null })
       }

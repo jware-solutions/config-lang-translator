@@ -34,7 +34,6 @@ export const LangForm = (props: LangFormProps) => {
       }
     : undefined
 
-  console.log(LANG_DATA[props.selectedLang].website)
   return (
     <Form>
       <Form.Group inline>
