@@ -71,7 +71,8 @@ const config: Configuration = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.html',
+      favicon: 'src/img/favicon.ico'
     }),
     new MiniCssExtractPlugin({
       filename: '[name]-[contenthash].css'
