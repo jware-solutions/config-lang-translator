@@ -2,10 +2,10 @@
 
 A translator for the different configuration languages. Currently the following languages are supported:
 
-1. [Gura][gura]
-1. [Yaml][yaml]
-1. [JSON][json]
-1. [TOML][toml]
+- [Gura][gura]
+- [Yaml][yaml]
+- [JSON][json]
+- [TOML][toml]
 
 This tool is publicly available at https://conf-translator.netlify.app/
 
