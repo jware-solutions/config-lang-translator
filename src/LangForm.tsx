@@ -39,7 +39,7 @@ export const LangForm = (props: LangFormProps) => {
         options={props.langOptions}
         name={props.selectedLangInputName}
         value={props.selectedLang}
-        width={1}
+        width={3}
         onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
       />
       <Form.TextArea

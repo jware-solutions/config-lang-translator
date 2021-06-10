@@ -1,9 +1,11 @@
 import React from 'react'
-import { DropdownItemProps, Grid, Icon } from 'semantic-ui-react'
+import { Button, Container, DropdownItemProps, Grid, Header, Icon, Image, Menu, Segment } from 'semantic-ui-react'
 import { parse, dump } from 'gura'
 import yaml from 'js-yaml'
 import toml from 'toml-js'
 import { LangForm } from './LangForm'
+
+const jwareImg = require('./img/JWare.jpg').default
 
 /** Available languages. */
 type Lang = 'json' | 'yaml' | 'gura' | 'toml'
@@ -178,41 +180,94 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
     const destLangOptions = langOptions.filter((lang) => lang.value !== this.state.originLang)
 
     return (
-      <Grid stackable>
-        <Grid.Row columns={3}>
-          <Grid.Column width={7}>
-            <LangForm
-              langOptions={langOptions}
-              selectedLangInputName='originLang'
-              selectedLang={this.state.originLang}
-              textInputName='origin'
-              text={this.state.origin}
-              error={this.state.parseError}
-              handleFormChange={this.handleFormChange}
-            />
-          </Grid.Column>
-          <Grid.Column width={2} textAlign='center'>
-            <Icon
-              name='exchange'
-              className='clickable'
-              size='big'
-              onClick={this.toggleLangs}
-              title='Toggle languages'
-            />
-          </Grid.Column>
-          <Grid.Column width={7}>
-            <LangForm
-              langOptions={destLangOptions}
-              selectedLangInputName='destLang'
-              selectedLang={this.state.destLang}
-              textInputName='dest'
-              text={this.state.dest}
-              error={this.state.dumpError}
-              handleFormChange={this.handleFormChange}
-            />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <React.Fragment>
+        <Segment
+          inverted
+          textAlign='center'
+          // style={{ padding: '1em 0em' }}
+          vertical
+        >
+          <Menu
+            // fixed='top'
+            inverted
+            pointing
+            secondary
+            size='large'
+          >
+            {/* Title */}
+            <Menu.Item header>
+              <Image circular size='mini' src={jwareImg} style={{ marginRight: '1.5em' }} />
+              Configuration language translator
+            </Menu.Item>
+
+            {/* Source link button */}
+            <Menu.Item position='right'>
+              <Button
+                inverted
+                icon='github'
+                as='a'
+                href='https://github.com/jware-solutions/config-lang-translator'
+                target='_blank'
+              >
+                <Icon name='github' /> Source
+              </Button>
+            </Menu.Item>
+          </Menu>
+
+        </Segment>
+
+        {/* Form */}
+        <Grid id='from-grid' stackable>
+          <Grid.Row columns={3}>
+            <Grid.Column width={7}>
+              <LangForm
+                langOptions={langOptions}
+                selectedLangInputName='originLang'
+                selectedLang={this.state.originLang}
+                textInputName='origin'
+                text={this.state.origin}
+                error={this.state.parseError}
+                handleFormChange={this.handleFormChange}
+              />
+            </Grid.Column>
+            <Grid.Column width={2} textAlign='center'>
+              <Icon
+                name='exchange'
+                className='clickable'
+                size='big'
+                onClick={this.toggleLangs}
+                title='Toggle languages'
+              />
+            </Grid.Column>
+            <Grid.Column width={7}>
+              <LangForm
+                langOptions={destLangOptions}
+                selectedLangInputName='destLang'
+                selectedLang={this.state.destLang}
+                textInputName='dest'
+                text={this.state.dest}
+                error={this.state.dumpError}
+                handleFormChange={this.handleFormChange}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+
+        {/* Footer */}
+        <Segment id='footer' inverted vertical>
+          <Container>
+            <Grid divided inverted stackable>
+              <Grid.Row textAlign='center'>
+                <Grid.Column>
+                  <Header as='h4' inverted>
+                    Made with ❤️ by <a href='https://github.com/jware-solutions' rel="noreferrer" target='_blank'>Jware Solutions</a>
+                  </Header>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Container>
+        </Segment>
+      </React.Fragment>
     )
   }
 }

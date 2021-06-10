@@ -1,3 +1,21 @@
+/* For sticky footer */
+html {
+	height: unset;
+	min-height: 100%;
+	position: relative;
+}
+
 .clickable:hover {
 	cursor: pointer;
+}
+
+#from-grid {
+	padding: 2%;
+}
+
+#footer {
+	bottom: 0;
+	padding: 2% 0em;
+	position: absolute;
+	width: 100%;
 }
