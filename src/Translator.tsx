@@ -256,7 +256,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
         <Grid id='from-grid' stackable>
           <Grid.Row columns={1}>
             <Grid.Column>
-              <Header as='h3'>
+              <Header as='h2'>
                 <Icon name='exchange' color='green' />
                 <Header.Content>Use this online tool to convert any configuration language into another! YAML, TOML, JSON and Gura are available!</Header.Content>
               </Header>
@@ -305,7 +305,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
             <Grid divided inverted stackable>
               <Grid.Row textAlign='center'>
                 <Grid.Column>
-                  <Header as='h4' inverted>
+                  <Header as='h3' inverted>
                     Made with ❤️ by <a id='jware-link' href='https://github.com/jware-solutions' rel="noreferrer" target='_blank'>Jware Solutions</a>
                   </Header>
                 </Grid.Column>
