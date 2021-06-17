@@ -231,8 +231,10 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
           >
             {/* Title */}
             <Menu.Item header>
-              <Image circular size='mini' src={jwareImg} alt='JWare logo' style={{ marginRight: '1.5em' }} />
-              Configuration language translator
+              <a href='/'>
+                <Image circular size='mini' src={jwareImg} alt='JWare logo' style={{ marginRight: '1.5em' }} />
+              </a>
+              <h1 id='header-title'>Configuration language translator</h1>
             </Menu.Item>
 
             {/* Source link button */}
@@ -248,11 +250,18 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
               </Button>
             </Menu.Item>
           </Menu>
-
         </Segment>
 
         {/* Form */}
         <Grid id='from-grid' stackable>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <Header as='h3'>
+                <Icon name='exchange' color='green' />
+                <Header.Content>Use this online tool to convert any configuration language into another! YAML, TOML, JSON and Gura are available!</Header.Content>
+              </Header>
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Row columns={3}>
             <Grid.Column width={7}>
               <LangForm

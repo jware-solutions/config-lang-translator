@@ -2,8 +2,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { Configuration as WebpackConfiguration } from 'webpack'
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server'
-// import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
-// import ESLintPlugin from 'eslint-webpack-plugin'
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -72,7 +70,10 @@ const config: Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      favicon: 'src/img/favicon.ico'
+      favicon: 'src/img/favicon.ico',
+      templateParameters: {
+        description: 'A simple configuration language translator which includes YAML, TOML, JSON and Gura.'
+      }
     }),
     new MiniCssExtractPlugin({
       filename: '[name]-[contenthash].css'

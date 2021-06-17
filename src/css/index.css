@@ -37,3 +37,7 @@ html {
 #jware-link:hover {
 	text-decoration: underline;
 }
+
+#header-title {
+	margin-top: 0;
+}
