@@ -19,3 +19,21 @@ html {
 	position: absolute;
 	width: 100%;
 }
+
+/* Prevents TextArea labels to be visible without affecting accessibility */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+#jware-link {
+	color: #fff;
+}
+
+#jware-link:hover {
+	text-decoration: underline;
+}

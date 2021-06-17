@@ -12,6 +12,8 @@ interface LangFormProps {
   selectedLang: Lang,
   /** Name to set in TextArea to handle changes. */
   textInputName: string,
+  /** Name to set to Dropdown to prevent accessibility issues. */
+  ariaDropdownName: string,
   /** Text to display in TextArea. */
   text: string,
   /** Error to display in TextArea. */
@@ -34,6 +36,8 @@ export const LangForm = (props: LangFormProps) => {
       }
     : undefined
 
+  const textAreaId = `${props.selectedLang}-text-area`
+
   return (
     <Form>
       <Form.Group inline>
@@ -42,6 +46,7 @@ export const LangForm = (props: LangFormProps) => {
           options={props.langOptions}
           name={props.selectedLangInputName}
           value={props.selectedLang}
+          aria-label={props.ariaDropdownName}
           width={5}
           onChange={(_, { name, value }) => { props.handleFormChange(name, value as string) }}
         />
@@ -61,7 +66,9 @@ export const LangForm = (props: LangFormProps) => {
       </Form.Group>
 
       {/* Text area */}
+      <label htmlFor={textAreaId} className='visually-hidden'>{props.selectedLang} content</label>
       <Form.TextArea
+        id={textAreaId}
         rows={25}
         name={props.textInputName}
         value={props.text}

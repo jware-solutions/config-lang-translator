@@ -10,7 +10,12 @@ const jwareImg = require('./img/JWare.jpg').default
 /** Available languages. */
 type Lang = 'json' | 'yaml' | 'gura' | 'toml'
 
-type LangsData = { [key: string]: { image: any, website: string } }
+type LangsData = {
+  [key: string]: {
+    image: any,
+    website: string
+  }
+}
 
 const LANG_DATA: LangsData = {
   json: {
@@ -176,7 +181,12 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
         key: lang,
         value: lang,
         text: lang,
-        image: { avatar: true, src: LANG_DATA[lang].image }
+        image: {
+          avatar: true,
+          src: LANG_DATA[lang].image,
+          alt: `${lang} logo`,
+          'aria-label': lang
+        }
       }
     })
   }
@@ -211,11 +221,9 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
         <Segment
           inverted
           textAlign='center'
-          // style={{ padding: '1em 0em' }}
           vertical
         >
           <Menu
-            // fixed='top'
             inverted
             pointing
             secondary
@@ -223,7 +231,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
           >
             {/* Title */}
             <Menu.Item header>
-              <Image circular size='mini' src={jwareImg} style={{ marginRight: '1.5em' }} />
+              <Image circular size='mini' src={jwareImg} alt='JWare logo' style={{ marginRight: '1.5em' }} />
               Configuration language translator
             </Menu.Item>
 
@@ -231,10 +239,10 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
             <Menu.Item position='right'>
               <Button
                 inverted
-                icon='github'
                 as='a'
                 href='https://github.com/jware-solutions/config-lang-translator'
                 target='_blank'
+                rel="noreferrer"
               >
                 <Icon name='github' /> Source
               </Button>
@@ -251,6 +259,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
                 langOptions={langOptions}
                 selectedLangInputName='originLang'
                 selectedLang={this.state.originLang}
+                ariaDropdownName='Origin language'
                 textInputName='origin'
                 text={this.state.origin}
                 error={this.state.parseError}
@@ -271,6 +280,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
                 langOptions={destLangOptions}
                 selectedLangInputName='destLang'
                 selectedLang={this.state.destLang}
+                ariaDropdownName='Target language'
                 textInputName='dest'
                 text={this.state.dest}
                 error={this.state.dumpError}
@@ -287,7 +297,7 @@ class Translator extends React.Component<TranslatorProps, TranslatorState> {
               <Grid.Row textAlign='center'>
                 <Grid.Column>
                   <Header as='h4' inverted>
-                    Made with ❤️ by <a href='https://github.com/jware-solutions' rel="noreferrer" target='_blank'>Jware Solutions</a>
+                    Made with ❤️ by <a id='jware-link' href='https://github.com/jware-solutions' rel="noreferrer" target='_blank'>Jware Solutions</a>
                   </Header>
                 </Grid.Column>
               </Grid.Row>
