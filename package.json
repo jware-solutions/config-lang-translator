@@ -10,7 +10,7 @@
   "author": "JWare Solutions <jware.organization@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "gura": "1.4.0",
+    "gura": "1.4.2",
     "js-yaml": "^4.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

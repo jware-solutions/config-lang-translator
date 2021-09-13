@@ -3392,10 +3392,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0,
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
 
-gura@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/gura/-/gura-1.4.0.tgz#652f986552e27006161a84b40a452a9d7143409d"
-  integrity sha512-V84LJK/6N9FLh2sjp6//w+Jm0sQO4abDDdIt/1q2B/uKMX8w8QBs8nRBDjtTs6wdbRn5hdi6m/83J7A+8v9rBg==
+gura@1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/gura/-/gura-1.4.2.tgz#979e0bd59c1cd491e9f0bba6c27442c41207e982"
+  integrity sha512-eQKg+Bc2s74WaqC+QBuHenGM2JmzIvXS+GoqZ9FzrJgIxJxqEKevWblVxwiWbwRNZtknhYUt4INST7I+8SYxLA==
 
 handle-thing@^2.0.0:
   version "2.0.1"
