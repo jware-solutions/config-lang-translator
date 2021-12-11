@@ -1,6 +1,6 @@
 {
   "name": "config-lang-translator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Translator for the different configuration languages",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "JWare Solutions <jware.organization@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "gura": "1.4.3",
+    "gura": "1.4.4",
     "js-yaml": "^4.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
