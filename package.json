@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "gura": "1.4.4",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "semantic-ui-css": "^2.4.1",
