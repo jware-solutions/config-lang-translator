@@ -24,7 +24,7 @@
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@babel/runtime": "^7.14.0",
+    "@babel/runtime": "^7.26.10",
     "@types/fork-ts-checker-webpack-plugin": "^0.4.5",
     "@types/js-yaml": "^4.0.1",
     "@types/mini-css-extract-plugin": "^1.4.3",
